@@ -1,24 +1,29 @@
-
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.8  # or any image suitable for your environment
-    working_directory: /tmp
+    working_directory: ~/repo
     steps:
       - checkout
+
       - run:
-          name: Creating Dummy Artifacts
+          name: Install Dependencies
           command: |
-            echo "my artifact file" > /tmp/art-1
-            mkdir -p /tmp/artifacts
-            echo "my artifact files in a dir" > /tmp/artifacts/art-2
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt  # Assuming you have a requirements.txt
+
+      - run:
+          name: Run Tests
+          command: |
+            . venv/bin/activate
+            pytest tests/  # Assuming you're using pytest and your tests are in the 'tests/' directory
 
       - store_artifacts:
-          path: /tmp/art-1
-          destination: artifact-file
+          path: test-results/
+          destination: test-results
 
-      - store_artifacts:
-          path: /tmp/artifacts
-          destination: artifacts-dir
+      - store_test_results:
+          path: test-results/
