@@ -3,36 +3,25 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/python:3.8  # or any image suitable for your environment
+      - image: circleci/node:14
     working_directory: ~/repo
     steps:
       - checkout
 
       - run:
           name: Install Dependencies
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+          command: npm install
 
       - run:
           name: Run Tests
-          command: |
-            . venv/bin/activate
-            pytest tests/
-
-      - store_artifacts:
-          path: test-results/
-          destination: test-results
-
-      - store_test_results:
-          path: test-results/
+          command: npm test
+          environment:
+            BASE_URL: $BASE_URL  # Assuming you set these in CircleCI environment variables
+            USERNAME: $USERNAME
+            PASSWORD: $PASSWORD
 
 workflows:
   version: 2
   test-workflow:
     jobs:
-      - test:
-          environment:
-            API_KEY: $API_KEY  # Assuming you set this in CircleCI environment variables
-            OTHER_ENV_VAR: $OTHER_ENV_VAR
+      - test
