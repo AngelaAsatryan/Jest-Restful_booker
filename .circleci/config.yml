@@ -13,13 +13,13 @@ jobs:
           command: |
             python -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt  # Assuming you have a requirements.txt
+            pip install -r requirements.txt
 
       - run:
           name: Run Tests
           command: |
             . venv/bin/activate
-            pytest tests/  # Assuming you're using pytest and your tests are in the 'tests/' directory
+            pytest tests/
 
       - store_artifacts:
           path: test-results/
@@ -27,3 +27,12 @@ jobs:
 
       - store_test_results:
           path: test-results/
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - test:
+          environment:
+            API_KEY: $API_KEY  # Assuming you set this in CircleCI environment variables
+            OTHER_ENV_VAR: $OTHER_ENV_VAR
