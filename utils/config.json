@@ -1,0 +1,28 @@
+{
+  "baseUrl": "https://restful-booker.herokuapp.com",
+  "credentials": {
+    "username": "admin",
+    "password": "password123"
+  },
+  "createBookingBody": {
+    "firstname": "Eric",
+    "lastname": "Brown",
+    "totalprice": 784,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2020-12-05",
+      "checkout": "2024-03-25"
+    }
+  },
+  "updateBookingBody": {
+    "firstnameNew": "Ella",
+    "lastnameNew": "Johns",
+    "totalpriceNew": 123,
+    "depositpaidNew": true,
+    "additionalneedsNew": "Supper",
+    "bookingdatesNew": {
+      "checkin": "2018-02-23",
+      "checkout": "2018-10-23"
+    }
+  }
+}
