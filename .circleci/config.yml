@@ -16,7 +16,7 @@ jobs:
           name: Run Tests
           command: npm test
           environment:
-            BASE_URL: $BASE_URL  # Assuming you set these in CircleCI environment variables
+            BASE_URL: $BASE_URL 
             USERNAME: $USERNAME
             PASSWORD: $PASSWORD
 
