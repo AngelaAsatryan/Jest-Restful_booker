@@ -1,15 +1,19 @@
 
-version: 2
+version: 2.1
+
 jobs:
   build:
+    docker:
+      - image: circleci/python:3.8  # or any image suitable for your environment
     working_directory: /tmp
     steps:
+      - checkout
       - run:
           name: Creating Dummy Artifacts
           command: |
-            echo "my artifact file" > /tmp/art-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+            echo "my artifact file" > /tmp/art-1
+            mkdir -p /tmp/artifacts
+            echo "my artifact files in a dir" > /tmp/artifacts/art-2
 
       - store_artifacts:
           path: /tmp/art-1
@@ -17,3 +21,4 @@ jobs:
 
       - store_artifacts:
           path: /tmp/artifacts
+          destination: artifacts-dir
